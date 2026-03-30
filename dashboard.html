@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-3xl font-bold mb-8">My Booking History</h2>
+<div class="bg-gray-900 rounded-3xl p-6 border border-gray-800">
+    {% if not bookings %}
+        <p class="text-gray-500">You haven't booked any movies yet.</p>
+    {% else %}
+    <table class="w-full text-left">
+        <tr class="border-b border-gray-800 text-gray-400">
+            <th class="py-4">Movie</th>
+            <th class="py-4">Seats</th>
+            <th class="py-4 text-right">Status</th>
+        </tr>
+        {% for b in bookings %}
+        <tr class="border-b border-gray-800">
+            <td class="py-4 font-bold">{{ b.movie_title }}</td>
+            <td class="py-4">{{ b.seats }}</td>
+            <td class="py-4 text-right text-green-500">Confirmed ✓</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

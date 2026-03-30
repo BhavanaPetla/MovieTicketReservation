@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Modern Category Scroller -->
+<div class="mb-10">
+    <h2 class="text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Browse by Industry</h2>
+    <div class="flex space-x-3 overflow-x-auto pb-4 no-scrollbar">
+        <!-- Filter Buttons -->
+        <a href="/" class="whitespace-nowrap bg-gray-900 border border-gray-800 px-6 py-2 rounded-full hover:bg-red-600 hover:border-red-600 transition font-bold text-sm">All Movies</a>
+        
+        {% set categories = ["Hollywood", "Bollywood", "Tollywood", "Kollywood", "Mollywood", "Sandalwood", "Anime"] %}
+        {% for cat in categories %}
+        <a href="/?category={{ cat }}" 
+           class="whitespace-nowrap bg-gray-900 border border-gray-800 px-6 py-2 rounded-full hover:bg-red-600 hover:border-red-600 transition font-bold text-sm">
+           {{ cat }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Movie Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    {% for m in movies %}
+    <div class="group bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 shadow-2xl hover:border-red-600/50 transition-all duration-500">
+        <!-- Image Container -->
+        <div class="relative overflow-hidden">
+            <img src="{{ m.img }}" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100">
+            <div class="absolute top-4 left-4">
+                <span class="bg-black/60 backdrop-blur-md text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-white/20">
+                    {{ m.category }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="p-6">
+            <h3 class="text-xl font-black mb-1 group-hover:text-red-500 transition">{{ m.title }}</h3>
+            <p class="text-green-500 font-bold mb-6 text-lg">₹ {{ m.price }} <span class="text-gray-500 text-xs font-normal">/ seat</span></p>
+            
+            <form action="/book/{{ m.id }}" method="POST" class="space-y-3">
+                <div class="flex items-center bg-gray-800 rounded-xl px-3 py-1">
+                    <span class="text-xs font-bold text-gray-500 uppercase mr-3">Seats</span>
+                    <input type="number" name="seats" value="1" min="1" max="10" 
+                           class="w-full bg-transparent p-2 text-white outline-none font-bold">
+                </div>
+                <button class="w-full bg-white text-black hover:bg-red-600 hover:text-white py-3 rounded-xl font-black transition-all duration-300 uppercase tracking-tighter text-sm shadow-lg">
+                    Instant Book
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Extra Styling for Scrollbar -->
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+{% endblock %}

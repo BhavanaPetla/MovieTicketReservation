@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto mt-16 bg-gray-900 p-10 rounded-3xl border border-gray-800 shadow-2xl">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-black text-white tracking-tight uppercase italic">Welcome Back</h2>
+        <p class="text-gray-500 text-sm mt-2 font-bold tracking-widest">SIGN IN TO YOUR ACCOUNT</p>
+    </div>
+
+    <!-- Error Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="bg-red-900/30 text-red-500 p-3 rounded-xl text-center text-xs font-bold mb-6 border border-red-800 uppercase tracking-widest">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="space-y-6">
+        <div>
+            <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Username</label>
+            <input type="text" name="username" placeholder="Your username" 
+                class="w-full bg-gray-800 border-none p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-red-600 transition" required>
+        </div>
+
+        <div>
+            <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Password</label>
+            <input type="password" name="password" placeholder="Your password" 
+                class="w-full bg-gray-800 border-none p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-red-600 transition" required>
+        </div>
+
+        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-red-900/20 transform hover:-translate-y-1">
+            SIGN IN
+        </button>
+    </form>
+
+    <div class="mt-8 text-center text-sm text-gray-500 font-bold uppercase tracking-tighter">
+        New to CineTick? 
+        <a href="/register" class="text-red-500 hover:underline">Register Now</a>
+    </div>
+</div>
+{% endblock %}
